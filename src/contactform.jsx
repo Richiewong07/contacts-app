@@ -60,6 +60,10 @@ class ContactForm extends Component {
           <input type="text" value={this.state.name}
             onChange={event => this.update_state(event, 'name')}/>
           <hr/>
+          <label>Your Email?</label>
+          <input type="text" value={this.state.email}
+            onChange={event => this.update_state(event, 'email')}/>
+          <hr/>
           <label>Your Phone Number?</label>
           <input type="text" value={this.state.phone_number}
             onChange={event => this.update_state(event, 'phone_number')}/>
