@@ -12,7 +12,11 @@ class ContactForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contact: [],
+      contact: [
+        {name: 'Richie', email: 'richiewong07@yahoo.com', phone_number: '281-702-7171', address: '2422 Hartman Dr.', city: 'Sugar Land', state: 'Texas', zip_code: '77478'},
+        {name: 'Ann', email: 'ann@yahoo.com', phone_number: '123-456-7890', address: '123 Main St.', city: 'Houston', state: 'Texas', zip_code: '77038'},
+        {name: 'Calvin', email: 'calvin@yahoo.com', phone_number: '098-765-4321', address: '987 Main St.', city: 'Houston', state: 'Texas', zip_code: '77083'}
+        ],
       name: '',
       email: '',
       phone_number: '',
@@ -47,20 +51,31 @@ class ContactForm extends Component {
     console.log('Submitted: ' , this.state);
     event.preventDefault();
 
-    var contact_info = {
+    var person = {
       name: this.state.name,
       email: this.state.email,
       phone_number: this.state.phone_number,
       address: this.state.address,
-      city: this.state.address,
+      city: this.state.city,
       state: this.state.state,
       zip_code: this.state.zip_code,
     }
 
     var contact = this.state.contact;
-    contact.push(contact_info);
-    console.log(contact);
+    contact.push(person);
+    this.setState({contact: contact})
 
+    contact.sort(function(a, b) {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    })
+
+    console.log('Contact Info', this.state.contact);
+  }
+
+  delete_contacts(event) {
+    event.preventDefault();
   }
 
   render() {
@@ -82,12 +97,10 @@ class ContactForm extends Component {
                 floatingLabelText="Your Email"
                 defaultValue={this.state.email}
                 onChange={event => this.update_state(event, 'email')}/>
-              <br/>
               <TextField
                 floatingLabelText="Your Phone Number"
                 defaultValue={this.state.phone_number}
                 onChange={event => this.update_state(event, 'phone_number')}/>
-              <br/>
               <TextField
                 floatingLabelText="Your Address"
                 defaultValue={this.state.address}
@@ -97,12 +110,10 @@ class ContactForm extends Component {
                 floatingLabelText="Your City"
                 defaultValue={this.state.city}
                 onChange={event => this.update_state(event, 'city')}/>
-              <br/>
               <TextField
                 floatingLabelText="Your State"
                 defaultValue={this.state.state}
                 onChange={event => this.update_state(event, 'state')}/>
-              <br/>
               <TextField
                 floatingLabelText="Zip Code"
                 defaultValue={this.state.zip_code}
@@ -120,7 +131,6 @@ class ContactForm extends Component {
     );
   }
 }
-
 
 
 

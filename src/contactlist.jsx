@@ -13,22 +13,22 @@ class ContactList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: [1],
+      selected: false
     };
   }
 
-  tablerows(props) {
-    const people = this.props.people.map((person) =>
-      <TableRow> key={person.name}>
-        <TableRowColumn>{person.name}</TableRowColumn>
-      </TableRow>
-    )
-    return people;
+  tablerows() {
+    var inputs = this.props.people.map((person) => {
+      return (
+        <TableRow key={person.name}>
+          <TableRowColumn>{person.name}</TableRowColumn>
+          <TableRowColumn>{person.city}</TableRowColumn>
+          <TableRowColumn>{person.state}</TableRowColumn>
+        </TableRow>
+      )
+    });
+    return inputs;
   }
-
-
-
-
 
 
   render() {
@@ -43,15 +43,12 @@ class ContactList extends Component {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            
-          </TableRow>
+          {this.tablerows()}
         </TableBody>
       </Table>
       </div>
     )
   }
 }
-
 
 export default ContactList;
