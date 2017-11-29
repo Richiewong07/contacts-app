@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
-import ContactList from './contactlist';
+// import ContactList from './contactlist';
 import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import TextField from 'material-ui/TextField';
+
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
 import './myform.css';
 
@@ -66,17 +75,33 @@ class ContactForm extends Component {
     this.setState({contact: contact})
 
     contact.sort(function(a, b) {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
+      if (a.name < b.name)
+        return -1;
+      if (a.name > b.name)
+        return 1;
       return 0;
     })
 
     console.log('Contact Info', this.state.contact);
   }
 
-  delete_contacts(event) {
-    event.preventDefault();
+
+  display_rows() {
+    var inputs = this.state.contact.map((person) => {
+      return (
+        <TableRow key={person.name}>
+          <TableRowColumn>{person.name}
+          </TableRowColumn>
+          <TableRowColumn>{person.city}</TableRowColumn>
+          <TableRowColumn>{person.state}</TableRowColumn>
+        </TableRow>
+      )
+    });
+    return inputs;
   }
+
+
+
 
   render() {
     return (
@@ -125,7 +150,25 @@ class ContactForm extends Component {
             </CardActions>
           </form>
         </Card>
-        <ContactList people={this.state.contact}/>
+        {/* <ContactList people={this.state.contact}/>
+      </div> */}
+      {/* <div> */}
+        <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderColumn>Name</TableHeaderColumn>
+            <TableHeaderColumn>City</TableHeaderColumn>
+            <TableHeaderColumn>State</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {this.display_rows()}
+        </TableBody>
+      </Table>
+      <CardActions>
+        <RaisedButton type= "submit"label="Delete" primary={true}/>
+        <RaisedButton type= "submit"label="Edit" primary={true}/>
+      </CardActions>
       </div>
 
     );
